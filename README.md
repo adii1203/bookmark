@@ -78,7 +78,7 @@ Access the application at http://localhost:3000.
 ## Todos
 
 - [x] Deploy to vercel
-- [ ] Creat database schema (w/ zod)
+- [x] Creat database schema (w/ zod)
 - [ ] Connect to database (mongodb)
 - [ ] Add basic ui with mock data (tailwind, shadcn)
 - [ ] Add authentication
