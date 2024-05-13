@@ -80,7 +80,7 @@ Access the application at http://localhost:3000.
 - [x] Deploy to vercel
 - [x] Creat database schema (w/ zod)
 - [x] Connect to database (mongodb)
-- [ ] Creat register user route
+- [x] Creat register user route
 - [ ] Add basic ui with mock data (tailwind, shadcn)
 - [ ] Add authentication
 - [ ] Add user profile
