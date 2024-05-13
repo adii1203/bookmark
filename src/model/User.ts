@@ -12,15 +12,15 @@ const UserSchema: Schema<UserTypes> = new Schema(
   {
     name: {
       type: String,
-      required: true,
+      required: [true, "Please provide a name"],
     },
     email: {
       type: String,
-      required: true,
+      required: [true, "Email is required"],
     },
     password: {
       type: String,
-      required: true,
+      required: [true, "Password is required"],
     },
     isVerified: {
       type: Boolean,
