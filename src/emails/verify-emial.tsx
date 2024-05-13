@@ -8,11 +8,10 @@ import {
   Text,
 } from "@react-email/components";
 interface VerifyEmailProps {
-  email: string;
   otp: string;
 }
 
-export const VerifyEmail = ({ email, otp }: VerifyEmailProps) => {
+export const VerifyEmail = ({ otp }: VerifyEmailProps) => {
   return (
     <Html>
       <Head />
