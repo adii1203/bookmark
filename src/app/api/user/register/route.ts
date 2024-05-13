@@ -2,13 +2,15 @@ import connectDB from "@/lib/db";
 import User from "@/model/User";
 import { getRegisterSchema } from "@/lib/zod/schema/register";
 import { z } from "zod";
+import { resend } from "@/utils/resend";
+import { VerifyEmail } from "@/emails/verify-emial";
+import getOtp from "@/utils/getOtp";
+import bcrypt from "bcrypt";
 
 export async function POST(request: Request) {
-  // connect to database
   await connectDB();
 
   try {
-    // validate request body
     const data = await request.json();
     const userData = getRegisterSchema.parse(data);
 
@@ -22,19 +24,31 @@ export async function POST(request: Request) {
     }
 
     // create user
+    const otp = getOtp({ length: 6 });
+    const hashPassword = await bcrypt.hash(userData.password, 10);
+
     const newUser = await User.create({
       name: userData.name,
       email: userData.email,
-      password: userData.password,
+      password: hashPassword,
+      verificationToken: otp,
     });
 
-    //todo: send verification email
+    const email = await resend.emails.send({
+      to: userData.email,
+      from: "bookmark@updates.openurl.me",
+      subject: "Verify your email",
+      react: VerifyEmail({ otp }),
+    });
 
-    // return success
+    const user = await User.findById(newUser._id).select(
+      "-password -verificationToken -isVerified -createdAt -updatedAt"
+    );
+
     return Response.json({
       success: true,
-      message: "User registered successfully",
-      user: newUser,
+      message: "Verification email sent successfully",
+      user,
     });
   } catch (error) {
     console.log("Error registering user", error);

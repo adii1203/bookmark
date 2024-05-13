@@ -81,6 +81,7 @@ Access the application at http://localhost:3000.
 - [x] Creat database schema (w/ zod)
 - [x] Connect to database (mongodb)
 - [x] Creat register user route
+- [x] Send email verification otp
 - [ ] Add basic ui with mock data (tailwind, shadcn)
 - [ ] Add authentication
 - [ ] Add user profile
