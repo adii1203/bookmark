@@ -54,14 +54,16 @@ export async function POST(request: Request) {
     console.log("Error registering user", error);
     if (error instanceof z.ZodError) {
       return Response.json({
-        message: "Validation error",
-        errors: error.errors,
+        message: error.errors[0].message,
+        success: false,
+        errors: true,
       });
     }
 
     return Response.json({
       success: false,
       message: "Error registering user",
+      error: true,
     });
   }
 }
