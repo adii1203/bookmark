@@ -1,6 +1,7 @@
 import Image from "next/image";
 import hero from "../../public/hero.svg";
 import { Button } from "@/components/ui/button";
+import AuthCtaButton from "@/components/auth/auth-cta";
 
 export default function Home() {
   return (
@@ -12,12 +13,19 @@ export default function Home() {
             <br /> Share and <br /> Organize your bookmarks.
           </h1>
           <div className="space-x-4">
-            <Button size={"lg"} className="font-semibold">
-              Get started
-            </Button>
-            <Button variant={"secondary"} size={"lg"} className="font-semibold">
-              Login
-            </Button>
+            <AuthCtaButton redirectPath="/register">
+              <Button size={"lg"} className="font-semibold">
+                Get started
+              </Button>
+            </AuthCtaButton>
+            <AuthCtaButton redirectPath="/login">
+              <Button
+                variant={"secondary"}
+                size={"lg"}
+                className="font-semibold">
+                Login
+              </Button>
+            </AuthCtaButton>
           </div>
         </div>
         <div className="w-[26rem] md:w-[32rem]">
