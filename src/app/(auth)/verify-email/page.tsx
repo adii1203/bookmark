@@ -12,7 +12,6 @@ const VerifyEmail = () => {
             <h2 className="text-2xl font-bold">Verify your email</h2>
           </CardHeader>
           <CardContent className="space-y-4">
-            <Input type="text" value={"aditya32ft@gmail.com"} disabled />
             <OtpInputForm />
           </CardContent>
         </Card>

@@ -7,8 +7,12 @@ import {
 } from "@/components/ui/input-otp";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
 import React, { useEffect, useState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import { Input } from "@/components/ui/input";
 
 const OtpInputForm = () => {
+  const email = useSearchParams().get("email");
+  const router = useRouter();
   const [value, setValue] = useState<string>("");
 
   useEffect(() => {
@@ -17,8 +21,15 @@ const OtpInputForm = () => {
     }
   }, [value]);
 
+  useEffect(() => {
+    if (!email) {
+      router.push("/");
+    }
+  }, [email, router]);
+
   return (
     <div className="space-y-2">
+      <Input type="text" value={email || ""} disabled />
       <p>Enter your otp</p>
       <InputOTP
         value={value}
