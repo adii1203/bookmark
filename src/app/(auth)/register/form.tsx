@@ -5,8 +5,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import React, { useState } from "react";
 import { toast } from "sonner";
+import { getRegisterSchema } from "@/lib/zod/schema/register";
+import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -14,6 +17,12 @@ const RegisterForm = () => {
   });
   const [loading, setLoading] = useState(false);
   const handelFormSubmit = async () => {
+    const result = getRegisterSchema.safeParse(formData);
+    if (result.error) {
+      toast.error(result.error.errors[0].message);
+      return;
+    }
+
     setLoading(true);
     const res = await fetch("/api/user/register", {
       headers: {
@@ -27,6 +36,7 @@ const RegisterForm = () => {
       toast.success(data.message);
       setFormData({ name: "", email: "", password: "" });
       setLoading(false);
+      router.push(`/verify-email?email=${result.data.email}`);
     } else {
       setLoading(false);
       toast.error(data.message);
@@ -46,7 +56,6 @@ const RegisterForm = () => {
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           id="name"
           placeholder="name"
-          required
           type="name"
         />
       </div>
@@ -57,7 +66,6 @@ const RegisterForm = () => {
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           id="email"
           placeholder="m@example.com"
-          required
           type="email"
         />
       </div>
@@ -71,7 +79,6 @@ const RegisterForm = () => {
             setFormData({ ...formData, password: e.target.value })
           }
           id="password"
-          required
           type="password"
         />
       </div>
