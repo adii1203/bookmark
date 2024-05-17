@@ -18,7 +18,10 @@ export const login = async ({
       redirect: true,
     });
   } catch (error) {
-    const err = error as CredentialsSignin;
-    return err.cause;
+    if (error) {
+      const err = error as CredentialsSignin;
+      return err.cause;
+    }
+    throw error;
   }
 };
