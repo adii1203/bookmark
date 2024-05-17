@@ -8,8 +8,10 @@ import React from "react";
 import { login } from "@/actions/login";
 import { getLoginSchema } from "@/lib/zod/schema/login";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
+  const router = useRouter();
   const [data, setData] = React.useState({ email: "", password: "" });
   const loginAction = async ({
     email,
@@ -33,6 +35,10 @@ const LoginForm = () => {
 
     if (error) {
       toast.error(error.toString());
+    }
+    if (!error) {
+      toast.success("Logged in successfully");
+      router.push("/dashboard");
     }
   };
   return (
