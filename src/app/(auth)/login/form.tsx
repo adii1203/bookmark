@@ -5,13 +5,48 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import React from "react";
+import { login } from "@/actions/login";
+import { getLoginSchema } from "@/lib/zod/schema/login";
+import { toast } from "sonner";
 
 const LoginForm = () => {
+  const [data, setData] = React.useState({ email: "", password: "" });
+  const loginAction = async ({
+    email,
+    password,
+  }: {
+    email: string;
+    password: string;
+  }) => {
+    if (!email || !password) {
+      toast.error("Email and password are required");
+      return;
+    }
+    const parsed = getLoginSchema.safeParse({ email, password });
+
+    if (parsed.error) {
+      toast.error(parsed.error.errors[0].message);
+      return;
+    }
+
+    const error = await login(parsed.data);
+
+    if (error) {
+      toast.error(error.toString());
+    }
+  };
   return (
     <form className="space-y-4">
       <div className="space-y-2">
         <Label htmlFor="email">Email</Label>
-        <Input id="email" placeholder="m@example.com" required type="email" />
+        <Input
+          value={data.email}
+          onChange={(e) => setData({ ...data, email: e.target.value })}
+          id="email"
+          placeholder="m@example.com"
+          required
+          type="email"
+        />
       </div>
       <div className="space-y-2">
         <div className="flex items-center justify-between">
@@ -22,9 +57,18 @@ const LoginForm = () => {
             Forgot password?
           </Link>
         </div>
-        <Input id="password" required type="password" />
+        <Input
+          value={data.password}
+          onChange={(e) => setData({ ...data, password: e.target.value })}
+          id="password"
+          required
+          type="password"
+        />
       </div>
-      <Button className="w-full" type="submit">
+      <Button
+        onClick={() => loginAction(data)}
+        className="w-full"
+        type="button">
         Sign in
       </Button>
     </form>
