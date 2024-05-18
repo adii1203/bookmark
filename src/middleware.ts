@@ -3,6 +3,7 @@ import { apiAuthPrefix, authRoutes, publicRoutes } from "./../routes";
 
 export default middleware((req) => {
   const { nextUrl } = req;
+
   const isLoggedin = !!req.auth;
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
@@ -18,6 +19,10 @@ export default middleware((req) => {
       return Response.redirect(new URL("/dashboard", nextUrl));
     }
     return undefined;
+  }
+
+  if (isLoggedin && isPublicRoute) {
+    return Response.redirect(new URL("/dashboard", nextUrl));
   }
 
   if (!isLoggedin && !isPublicRoute) {
