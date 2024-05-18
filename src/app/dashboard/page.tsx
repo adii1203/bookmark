@@ -12,8 +12,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import Image from "next/image";
+import { auth, signOut } from "@/auth";
 
-export default function Component() {
+export default async function Component() {
+  const session = await auth();
+
   return (
     <div className="">
       <div className="">
@@ -44,9 +47,7 @@ export default function Component() {
                   alt="Avatar"
                   className="rounded-full"
                   height="32"
-                  src={
-                    "https://avatars.githubusercontent.com/u/114096753?s=400&u=d9f62be1c0de28cd08955b74560e1b50eb429988&v=4"
-                  }
+                  src={session?.user?.image || ""}
                   style={{
                     aspectRatio: "32/32",
                     objectFit: "cover",
@@ -62,13 +63,15 @@ export default function Component() {
               <DropdownMenuItem>Settings</DropdownMenuItem>
               <DropdownMenuItem>Support</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
+              <DropdownMenuItem></DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </header>
         <main className="flex-1 flex flex-col gap-4 p-4 md:gap-8 md:p-6">
           <div className="flex items-center">
-            <h1 className="font-semibold text-lg md:text-2xl">Bookmarks</h1>
+            <h1 className="font-semibold text-lg md:text-2xl">
+              {`Wellcome, ${session?.user?.name}`}
+            </h1>
             <Button className="ml-auto" size="sm">
               Add Bookmark
             </Button>
