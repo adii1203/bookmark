@@ -18,6 +18,9 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        megan: ["var(--font-megan)"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
