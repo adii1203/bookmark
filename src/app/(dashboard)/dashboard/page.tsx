@@ -1,18 +1,8 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-
 import { Input } from "@/components/ui/input";
-import {
-  DropdownMenuTrigger,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuItem,
-  DropdownMenuContent,
-  DropdownMenu,
-} from "@/components/ui/dropdown-menu";
-
-import Image from "next/image";
 import { auth, signOut } from "@/auth";
+import UserProfile from "../_component/user-profile";
 
 export default async function Component() {
   const session = await auth();
@@ -37,35 +27,13 @@ export default async function Component() {
               </div>
             </form>
           </div>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                className="rounded-full border border-gray-200 w-8 h-8 dark:border-gray-800"
-                size="icon"
-                variant="ghost">
-                <Image
-                  alt="Avatar"
-                  className="rounded-full"
-                  height="32"
-                  src={session?.user?.image || ""}
-                  style={{
-                    aspectRatio: "32/32",
-                    objectFit: "cover",
-                  }}
-                  width="32"
-                />
-                <span className="sr-only">Toggle user menu</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Support</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem></DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <UserProfile
+            profileImage={session?.user?.image || ""}
+            signOut={async () => {
+              "use server";
+              await signOut();
+            }}
+          />
         </header>
         <main className="flex-1 flex flex-col gap-4 p-4 md:gap-8 md:p-6">
           <div className="flex items-center">
