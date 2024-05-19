@@ -1,23 +1,42 @@
 import Image from "next/image";
-import hero from "../../public/hero.svg";
+import logo from "../../public/logo.png";
 import NaviganeButton from "@/components/component/navigate-button";
+import Link from "next/link";
+import { megan } from "@/utils/font";
+
 export default async function Home() {
   return (
-    <main className="p-7 h-screen">
-      <div className="flex flex-col md:flex-row items-center justify-around gap-8 h-full">
-        <div className="space-y-6">
-          <h1 className="text-3xl md:text-4xl font-bold">
-            Save,
-            <br /> Share and <br /> Organize your bookmarks.
-          </h1>
-          <div className="space-x-4">
-            <NaviganeButton text="Get Started" redirectTo="/login" />
-          </div>
+    <main className="h-screen py-6 px-4 max-w-[70rem] mx-auto">
+      <nav className="flex items-center justify-between">
+        <div className="w-10">
+          <NaviganeButton className="bg-white w-full p-0 hover:bg-transparent">
+            <Link href="/">
+              <Image
+                className="w-full object-cover"
+                src={logo}
+                alt="logo image"
+              />
+            </Link>
+          </NaviganeButton>
         </div>
-        <div className="w-[26rem] md:w-[32rem]">
-          <Image src={hero} alt="hero image" />
+        <div>
+          <NaviganeButton>
+            <Link href="/login">Get started</Link>
+          </NaviganeButton>
         </div>
-      </div>
+      </nav>
+      <section className="relative flex flex-col items-center justify-around h-[calc(100%-1.5rem)]">
+        <div className="absolute -z-10 w-60 h-60 top-40 sm:top-auto sm:w-72 sm:h-72 bg-purple-400 rounded-full " />
+        <div
+          className={`${megan.variable} font-megan font-semibold text-5xl sm:text-[4rem] tracking-wider text-center`}>
+          <h2>Save everything</h2>
+          <h2>Remember nothing</h2>
+        </div>
+        <p className="text-neutral-400 max-w-80 text-center">
+          A new one of a kind bookmarking tool, that allows you to save your
+          favorite sites.
+        </p>
+      </section>
     </main>
   );
 }

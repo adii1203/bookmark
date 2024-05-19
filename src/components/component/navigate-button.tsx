@@ -1,27 +1,14 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
-import Link from "next/link";
 
 interface NaviganeButtonProps {
-  text: string;
-  redirectTo: string;
   className?: string;
+  children?: React.ReactNode;
 }
 
-const NaviganeButton = ({
-  text,
-  redirectTo,
-  className,
-}: NaviganeButtonProps) => {
-  const router = useRouter();
-
-  return (
-    <Button className={className}>
-      <Link href={redirectTo}>{text}</Link>
-    </Button>
-  );
+const NaviganeButton = ({ className, children }: NaviganeButtonProps) => {
+  return <Button className={className}>{children}</Button>;
 };
 
 export default NaviganeButton;
