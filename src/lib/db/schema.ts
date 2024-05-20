@@ -60,3 +60,15 @@ export const verificationTokens = pgTable(
     compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
   })
 );
+
+export const bookmarks = pgTable("bookmark", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  userId: uuid("userId")
+    .notNull()
+    .references(() => users.id, {
+      onDelete: "cascade",
+    }),
+  url: text("url").notNull(),
+  title: text("title").notNull(),
+  tags: text("tags"),
+});
