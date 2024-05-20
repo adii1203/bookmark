@@ -21,4 +21,4 @@ export const authRoutes = [
  * Routes that starts with this prefix are for authentication
  * @type {string}
  */
-export const apiAuthPrefix = "/api/auth";
+export const apiAuthPrefix = "/api";
