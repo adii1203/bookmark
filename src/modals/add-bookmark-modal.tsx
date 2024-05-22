@@ -15,8 +15,10 @@ import { useState } from "react";
 
 import { bookmarkSchema } from "@/lib/zod/schema/url";
 import { toast } from "sonner";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export function AddBookmarModal({ userId }: { userId: string }) {
+  const queryClient = useQueryClient();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [url, setUrl] = useState<string>("");
   const createBookmark = async (url: string) => {
@@ -41,6 +43,18 @@ export function AddBookmarModal({ userId }: { userId: string }) {
       toast.error(data.message);
     }
   };
+
+  const { mutate, isError, isPending } = useMutation({
+    mutationFn: createBookmark,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["link"],
+      });
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
 
   return (
     <Dialog
@@ -69,7 +83,7 @@ export function AddBookmarModal({ userId }: { userId: string }) {
             placeholder="https://example.com"
           />
 
-          <Button onClick={() => createBookmark(url)} type="button">
+          <Button onClick={() => mutate(url)} type="button">
             Add Bookmark
           </Button>
         </div>

@@ -71,4 +71,6 @@ export const bookmarks = pgTable("bookmark", {
   url: text("url").notNull(),
   title: text("title").notNull(),
   tags: text("tags"),
+  description: text("description"),
+  image: text("image"),
 });

@@ -7,7 +7,6 @@ import { ZodError } from "zod";
 export async function POST(req: NextRequest) {
   const { link } = await req.json();
   const userId = req.headers.get("Authorization");
-  console.log(userId, link);
 
   try {
     const data = bookmarkSchema.safeParse({ url: link, userId });
@@ -35,13 +34,18 @@ export async function POST(req: NextRequest) {
       throw new Error("User not authenticated");
     }
 
+    const metaData = await fetch(`https://api.dub.co/metatags?url=${link}`);
+    const meta = await metaData.json();
+
     // Create a new bookmark
     const bookmark = await db
       .insert(bookmarks)
       .values({
         url: link,
         userId: user.id,
-        title: "New bookmark",
+        title: meta.title,
+        description: meta.description,
+        image: meta.image,
       })
       .returning();
 
