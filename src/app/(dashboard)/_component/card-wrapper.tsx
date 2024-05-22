@@ -13,7 +13,7 @@ const CardWrapper = () => {
   });
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 max-w-[60rem] mx-auto">
       {(data as BookmarkType[])?.map((bookmark: BookmarkType) => {
         return <Card key={bookmark.id} data={bookmark} />;
       })}
