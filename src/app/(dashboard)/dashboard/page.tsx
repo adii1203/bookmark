@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { auth, signOut } from "@/auth";
 import UserProfile from "../_component/user-profile";
 import AddBookmarModal from "@/modals/add-bookmark-modal";
+import CardWrapper from "../_component/card-wrapper";
 
 export default async function Component() {
   const session = await auth();
@@ -32,7 +33,9 @@ export default async function Component() {
             profileImage={session?.user?.image || ""}
             signOut={async () => {
               "use server";
-              await signOut();
+              await signOut({
+                redirectTo: "/",
+              });
             }}
           />
         </header>
@@ -43,7 +46,9 @@ export default async function Component() {
             </h1>
             <AddBookmarModal userId={session?.user?.id!} />
           </div>
-          <div></div>
+          <div>
+            <CardWrapper />
+          </div>
         </main>
       </div>
     </div>
