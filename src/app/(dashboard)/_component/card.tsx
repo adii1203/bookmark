@@ -1,12 +1,26 @@
 "use client";
 
+import { deletebookmark } from "@/actions/delete-bookmark";
 import { Button } from "@/components/ui/button";
 import { Card as Wrapper } from "@/components/ui/card";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Trash2 } from "lucide-react";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
+import { toast } from "sonner";
 
 const Card = ({ data }: any) => {
+  const queryClient = useQueryClient();
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: deletebookmark,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["link"],
+      });
+    },
+  });
+
   return (
     <div>
       <Wrapper className="flex flex-col sm:flex-row gap-4 items-start sm:items-center p-1 ">
@@ -34,6 +48,7 @@ const Card = ({ data }: any) => {
           </div>
           <div>
             <Button
+              onClick={() => mutate(data.id)}
               variant={"outline"}
               size={"icon"}
               className="w-8 h-8 rounded-full">
