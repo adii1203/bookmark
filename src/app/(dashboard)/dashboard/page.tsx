@@ -1,5 +1,3 @@
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { auth, signOut } from "@/auth";
 import UserProfile from "../_component/user-profile";
@@ -10,14 +8,10 @@ export default async function Component() {
   const session = await auth();
 
   return (
-    <div className="">
+    <div className="w-full">
       <div className="">
-        <header className="flex w-full h-14 lg:h-[60px] items-center gap-4 border-b bg-gray-100/40 px-6 dark:bg-gray-800/40">
-          <Link className="lg:hidden" href="#">
-            <BookmarkIcon className="h-6 w-6" />
-            <span className="sr-only">Bookmarks</span>
-          </Link>
-          <div className="w-full flex-1">
+        <header className="flex sticky top-0 w-full h-14 lg:h-[60px] items-center justify-center gap-4 border-b bg-gray-50 px-6 dark:bg-gray-800/40">
+          <div className="w-full">
             <form>
               <div className="relative">
                 <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400" />
