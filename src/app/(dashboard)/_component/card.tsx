@@ -4,7 +4,7 @@ import { deletebookmark } from "@/actions/delete-bookmark";
 import { Button } from "@/components/ui/button";
 import { Card as Wrapper } from "@/components/ui/card";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Trash2 } from "lucide-react";
+import { Heart, Trash2 } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { toast } from "sonner";
@@ -46,13 +46,19 @@ const Card = ({ data }: any) => {
               </p>
             </div>
           </div>
-          <div>
+          <div className="space-x-2">
             <Button
               onClick={() => mutate(data.id)}
               variant={"outline"}
               size={"icon"}
-              className="w-8 h-8 rounded-full">
+              className="w-8 h-8 rounded-md">
               <Trash2 size={18} />
+            </Button>
+            <Button
+              variant={"outline"}
+              size={"icon"}
+              className="w-8 h-8 rounded-md">
+              <Heart size={18} />
             </Button>
           </div>
         </div>
