@@ -35,7 +35,7 @@ export default async function Component() {
         </header>
         <main className="flex-1 flex flex-col gap-4 p-4 md:gap-8 md:p-6">
           <div className="flex items-center justify-between">
-            <h1 className="font-semibold text-lg md:text-2xl">
+            <h1 className="hidden sm:block font-semibold text-lg md:text-2xl">
               {`Wellcome, ${session?.user?.name}`}
             </h1>
             <AddBookmarModal userId={session?.user?.id!} />
