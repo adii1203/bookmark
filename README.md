@@ -2,6 +2,8 @@
 
 This is a URL Bookmarker web application built using Next.js, Tailwind CSS, and MongoDB. It allows users to save and organize their favorite URLs for quick access.
 
+![Conversion output](https://github.com/adii1203/bookmark/assets/114096753/0b8623a8-afb3-4bb8-ad7b-781af01e99bb)
+
 ## Features
 
 - User Authentication: Users can sign up, log in, and log out securely.
@@ -18,11 +20,7 @@ This is a URL Bookmarker web application built using Next.js, Tailwind CSS, and 
 
 - Tailwind CSS: Utility-first CSS framework for styling.
 
-- MongoDB: NoSQL database for storing user data and bookmarks.
-
-- Node.js: JavaScript runtime environment for server-side logic.
-
-- Express: Web application framework for Node.js used for handling HTTP requests.
+- Postgres: Neon postgres serverless database.
 
 ### Installation
 
