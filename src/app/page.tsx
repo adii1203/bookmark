@@ -1,6 +1,6 @@
 import Image from "next/image";
 import logo from "../../public/logo.png";
-import NaviganeButton from "@/components/component/navigate-button";
+import NaviganeButton from "@/ui/navigate-button";
 import Link from "next/link";
 import { megan } from "@/utils/font";
 
