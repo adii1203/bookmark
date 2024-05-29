@@ -83,8 +83,11 @@ export function AddBookmarModal({ userId }: { userId: string }) {
             placeholder="https://example.com"
           />
 
-          <Button onClick={() => mutate(url)} type="button">
-            Add Bookmark
+          <Button
+            disabled={isPending}
+            onClick={() => mutate(url)}
+            type="button">
+            {isPending ? "Adding..." : "Add Bookmark"}
           </Button>
         </div>
       </DialogContent>

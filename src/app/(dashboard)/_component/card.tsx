@@ -4,7 +4,7 @@ import { deletebookmark } from "@/actions/delete-bookmark";
 import { Button } from "@/components/ui/button";
 import { Card as Wrapper } from "@/components/ui/card";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Heart, Trash2 } from "lucide-react";
+import { Heart, Loader, Trash2 } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { toast } from "sonner";
@@ -52,7 +52,11 @@ const Card = ({ data }: any) => {
               variant={"outline"}
               size={"icon"}
               className="w-8 h-8 rounded-md">
-              <Trash2 size={18} />
+              {isPending ? (
+                <Loader className="animate-spin" size={18} />
+              ) : (
+                <Trash2 size={18} />
+              )}
             </Button>
             <Button
               variant={"outline"}
